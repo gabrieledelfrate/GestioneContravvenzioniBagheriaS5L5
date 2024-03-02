@@ -1,0 +1,23 @@
+﻿@model List<TrasgressoreTotaleModel>
+
+<h1>Totale Verbali per Trasgressore</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Cognome</th>
+            <th>Nome</th>
+            <th>Totale Verbali</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var trasgressore in Model)
+        {
+            <tr>
+                <td>@trasgressore.Cognome</td>
+                <td>@trasgressore.Nome</td>
+                <td>@trasgressore.TotaleVerbali</td>
+            </tr>
+        }
+    </tbody>
+</table>

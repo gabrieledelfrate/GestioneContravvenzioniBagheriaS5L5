@@ -1,0 +1,114 @@
+﻿@model GestioneContravvenzioniBagheriaS5L5.Models.AnagraficaVerbaleModel
+
+@{
+    ViewBag.Title = "Anagrafica e Inserimento Verbale";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <script>alert('@TempData["SuccessMessage"]');</script>
+}
+
+@using (Html.BeginForm("InserisciAnagrafica", "Home", FormMethod.Post, new { id = "anagraficaForm" }))
+{
+    <!-- Form per l'anagrafica -->
+    <div>
+        <h3>Anagrafica</h3>
+        @Html.LabelFor(model => model.Cognome)
+        @Html.TextBoxFor(model => model.Cognome, new { @class = "form-control" })
+
+        @Html.LabelFor(model => model.Nome)
+        @Html.TextBoxFor(model => model.Nome, new { @class = "form-control" })
+
+        @Html.LabelFor(model => model.Indirizzo)
+        @Html.TextBoxFor(model => model.Indirizzo, new { @class = "form-control" })
+
+        @Html.LabelFor(model => model.Città)
+        @Html.TextBoxFor(model => model.Città, new { @class = "form-control" })
+
+        @Html.LabelFor(model => model.CAP)
+        @Html.TextBoxFor(model => model.CAP, new { @class = "form-control" })
+
+        @Html.LabelFor(model => model.CodFisc)
+        @Html.TextBoxFor(model => model.CodFisc, new { @class = "form-control" })
+
+        <!-- Pulsante per l'inserimento dell'anagrafica -->
+        <button type="button" onclick="InserisciAnagrafica()" class="btn btn-primary">Registra Anagrafica</button>
+    </div>
+}
+
+@using (Html.BeginForm("InserisciVerbale", "Home", FormMethod.Post, new { id = "verbaleForm" }))
+{
+    <!-- Form per il verbale -->
+    <div>
+        <h3>Verbale</h3>
+        @Html.LabelFor(model => model.IDViolazione)
+        @Html.DropDownListFor(model => model.IDViolazione, new SelectList(Model.TipoViolazioni, "IDViolazione", "Descrizione"), "Seleziona una violazione", new { @class = "form-control" })
+
+        <!-- Aggiungi gli altri campi del verbale secondo le tue necessità -->
+        @Html.LabelFor(model => model.DataViolazione)
+        @Html.EditorFor(model => model.DataViolazione, new { @class = "form-control", @type = "date" })
+
+        @Html.LabelFor(model => model.IndirizzoViolazione)
+        @Html.TextBoxFor(model => model.IndirizzoViolazione, new { @class = "form-control" })
+
+        @Html.LabelFor(model => model.Importo)
+        @Html.TextBoxFor(model => model.Importo, new { @class = "form-control" })
+
+        @Html.LabelFor(model => model.DecurtamentoPunti)
+        @Html.TextBoxFor(model => model.DecurtamentoPunti, new { @class = "form-control" })
+
+        @Html.LabelFor(model => model.IDAgente)
+        @Html.TextBoxFor(model => model.IDAgente, new { @class = "form-control" })
+
+        @Html.LabelFor(model => model.DataTrascrizioneVerbale)
+        @Html.EditorFor(model => model.DataTrascrizioneVerbale, new { @class = "form-control", @type = "date" })
+
+        <div>
+            <h3>Recupera ID Anagrafica</h3>
+            <label for="codiceFiscale">Codice Fiscale</label>
+            <input type="text" id="codiceFiscale" class="form-control" />
+            <button type="button" onclick="RecuperaIdAnagrafica()" class="btn btn-info">Recupera ID Anagrafica</button>
+            <span id="idAnagraficaOutput"></span>
+        </div>
+
+        @Html.LabelFor(model => model.IDAnagrafica)
+        @Html.TextBoxFor(model => model.IDAnagrafica, new { @class = "form-control" })
+
+        <!-- Pulsante per l'inserimento del verbale -->
+        <button type="button" onclick="InserisciVerbale()" class="btn btn-success">Registra Verbale</button>
+    </div>
+}
+
+<script>
+    function InserisciAnagrafica() {
+        // Effettua la submit del form per l'anagrafica
+        document.getElementById("anagraficaForm").submit();
+    }
+
+    function InserisciVerbale() {
+        // Effettua la submit del form per il verbale
+        document.getElementById("verbaleForm").submit();
+    }
+
+    function RecuperaIdAnagrafica() {
+        var codiceFiscale = document.getElementById("codiceFiscale").value;
+
+        // Effettua la chiamata Ajax per recuperare l'IDAnagrafica dal server
+        $.ajax({
+            url: '@Url.Action("RecuperaIdAnagrafica", "Home")',
+            type: 'POST',
+            data: { codiceFiscale: codiceFiscale },
+            success: function (result) {
+                // Mostra l'IDAnagrafica recuperato
+                document.getElementById("idAnagraficaOutput").innerHTML = 'ID Anagrafica: ' + result;
+            },
+            error: function () {
+                // Gestisci eventuali errori durante la chiamata Ajax
+                alert("Si è verificato un errore durante il recupero dell'ID Anagrafica.");
+            }
+        });
+    }
+</script>

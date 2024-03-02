@@ -1,0 +1,23 @@
+﻿@model List<PuntiDecurtatiTotaleModel>
+
+<h1>Totale Punti Decurtati per Trasgressore</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Cognome</th>
+            <th>Nome</th>
+            <th>Totale Punti Decurtati</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var trasgressore in Model)
+        {
+            <tr>
+                <td>@trasgressore.Cognome</td>
+                <td>@trasgressore.Nome</td>
+                <td>@trasgressore.TotalePuntiDecurtati</td>
+            </tr>
+        }
+    </tbody>
+</table>

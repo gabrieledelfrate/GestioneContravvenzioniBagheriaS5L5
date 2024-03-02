@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "Gestione Contravvenzioni";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Gestione Contravvenzioni</h1>
+    <a href="@Url.Action("AnagraficaVerbale", "Home")">
+        <div class="card">Anagrafica e Inserimento Verbale</div>
+    </a>
+    <a href="@Url.Action("Verbali", "Home")">
+        <div class="card">Verbali</div>
+    </a>
+    <a href="@Url.Action("TrasgressoriTotale", "Home")">
+        <div class="card">Trasgressori Totale</div>
+    </a>
+    <a href="@Url.Action("PuntiDecurtatiTotale", "Home")">
+        <div class="card">Punti Decurtati Totale</div>
+    </a>
+    <a href="@Url.Action("ViolazioniSopra10Punti", "Home")">
+        <div class="card">Violazioni Sopra 10 Punti</div>
+    </a>
+    <a href="@Url.Action("ViolazioniImportoMaggiore400", "Home")">
+        <div class="card">Violazioni Importo Maggiore di 400</div>
+    </a>
+</div>
